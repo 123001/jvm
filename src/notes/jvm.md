@@ -186,10 +186,69 @@ synchronized和Lock.其中synchronized使用Object对象本身的nofify、wait�
 FutureTask可以包装Callable进行线程执行
 
 ## 线程池 ThreadPoolExecutor
+构造参数
+
+| 序号 | 名称 | 类型 | 含义 |
+|:---:|:---:|:---:|:---:|
+| 1 | corePoolSize | int | 核心线程池大小 |
+| 2 | maximumPoolSize | int | 最大线程池大小 |
+| 3 | keepAliveTime | long | 线程最大空闲时间 |
+| 4 | unit | TimeUnit | 时间单位 |
+| 5 | workQueue | BlockingQueue<Runnable> | 线程等待队列 |
+| 6 | threadFactory | ThreadFactory | 线程创建工厂 |
+| 7 | handler | RejectedExecutionHandler | 拒绝策略 |
+
+拒绝策略
++ ThreadPoolExecutor.AbortPolicy 抛出java.util.concurrent.RejectedExecutionException异常
++ ThreadPoolExecutor.CallerRunsPolicy 用于被拒绝任务的处理程序，它直接在 execute 方法的调用线程中运行被拒绝的任务；如果执行程序已关闭，则会丢弃该任务
++ ThreadPoolExecutor.DiscardOldestPolicy 丢弃最前面任务
++ ThreadPoolExecutor.DiscardPolicy 丢弃当前任务
+
+线程池大小配置：
+1. 主机cpu核心数*2
+2. 最佳线程数目 = （（线程等待时间+线程CPU时间）/线程CPU时间 ）* CPU数目
+> 比如平均每个线程CPU运行时间为0.5s，而线程等待时间（非CPU运行时间，比如IO）为1.5s，CPU核心数为8，那么根据上面这个公式估算得到：((0.5+1.5)/0.5)*8=32。
+3. 最佳线程数目 = （线程等待时间与线程CPU时间之比 + 1）* CPU数目
+> 线程等待时间所占比例越高，需要越多线程。线程CPU时间所占比例越高，需要越少线程。
 
 ## jvm
+### 常见参数
+| 示例参数 | 描述 |
+|:---:|:---:|
+| -Xms20m | 堆初始值20M |
+| -Xmx20m | 堆最大可用值20M |
+| -Xmn5m | 新生代最大可用值5M |
+| -XX:PrintGC | 触发GC时日志打印 |
+| -XX:PrintGCDetails | 触发GC时日志打印更详细 |
+| -XX:UseSerialGC | 串行回收 |
+| -XX:SurvivorRatio=2 | eden:from:to = 2:1:1 |
+| -XX:NewRatio=2 | 新生代:老年代 = 1:2 |
+
++ 查询虚拟机初始参数：java -XX:+PrintFlagsInitial
++ 查询虚拟机修改之后参数：java -XX:+PrintFlagsFinal -version
++ 查询垃圾收集器：java -XX:+PrintCommandLineFlags 进程号
++ 查询具体参数：jinfo -flag PrintGC 70348
 
 ## 强引用、软引用、弱引用、虚引用和引用队列
+> 强引用（strong reference）
+
+强引用就是我们最常见的普通对象引用（如new 一个对象），只要还有强引用指向一个对象，就表明此对象还“活着”。在强引用面前，即使JVM内存空间不足，JVM宁愿抛出OutOfMemoryError运行时错误（OOM），让程序异常终止，也不会靠回收强引用对象来解决内存不足的问题。对于一个普通的对象，如果没有其他的引用关系，只要超过了引用的作用域或者显式地将相应（强）引用赋值为null，就意味着此对象可以被垃圾收集了。但要注意的是，并不是赋值为null后就立马被垃圾回收，具体的回收时机还是要看垃圾收集策略的。
+
+> 软引用（soft reference）:SoftReference 内存不够时回收
+
+软引用相对强引用要弱化一些，可以让对象豁免一些垃圾收集。当内存空间足够的时候，垃圾回收器不会回收它。只有当JVM认定内存空间不足时才会去回收软引用指向的对象。JVM会确保在抛出OOM前清理软引用指向的对象，而且JVM是很聪明的，会尽可能优先回收长时间闲置不用的软引用指向的对象，对那些刚构建的或刚使用过的软引用指向的对象尽可能的保留。基于软引用的这些特性，软引用可以用来实现很多内存敏感点的缓存场景，即如果内存还有空闲，可以暂时缓存一些业务场景所需的数据，当内存不足时就可以清理掉，等后面再需要时，可以重新获取并再次缓存。这样就确保在使用缓存提升性能的同时，不会导致耗尽内存。
+
+> 弱引用（weak reference）:WeakReference 发生gc就回收
+
+弱引用指向的对象是一种十分临近finalize状态的情况，当弱引用被清除的时候，就符合finalize的条件了。弱引用与软引用最大的区别就是弱引用比软引用的生命周期更短暂。垃圾回收器会扫描它所管辖的内存区域的过程中，只要发现弱引用的对象，不管内存空间是否有空闲，都会立刻回收它。如同前面我说过的，具体的回收时机还是要看垃圾回收策略的，因此那些弱引用的对象并不是说只要达到弱引用状态就会立马被回收。
+
+> 幻象引用（phantom reference）
+
+幻象引用，也有被说成是虚引用或幽灵引用。幻象引用并不会决定对象的生命周期。即如果一个对象仅持有虚引用，就相当于没有任何引用一样，在任何时候都可能被垃圾回收器回收。不能通过它访问对象，幻象引用仅仅是提供了一种确保对象被finalize以后，做某些事情的机制（如做所谓的Post-Mortem清理机制），也有人利用幻象引用监控对象的创建和销毁。
+
+幻象引用的get方法永远返回null，主要用于检查对象是否已经从内测中删除。
+
+对于软引用、弱引用、幻象引用可以配合引用队列（ReferenceQueue）来使用，特别是幻象引用，get方法只返回null，如果再不指定引用队列，基本就没有任何意义了。
 
 ## 垃圾收集器
 
