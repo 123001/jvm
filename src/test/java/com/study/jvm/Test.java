@@ -1,5 +1,6 @@
 package com.study.jvm;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
 
@@ -33,6 +34,13 @@ public class Test {
         TimeUnit.SECONDS.sleep(2);
 
 
+    }
 
+
+    public static void main(String[]rg) throws InterruptedException {
+        String a = "";
+        while (true) {
+//            a += (new Random().nextLong()+"" + new Random().nextLong());
+        }
     }
 }
