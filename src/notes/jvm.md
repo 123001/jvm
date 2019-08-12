@@ -251,6 +251,39 @@ FutureTask可以包装Callable进行线程执行
 对于软引用、弱引用、幻象引用可以配合引用队列（ReferenceQueue）来使用，特别是幻象引用，get方法只返回null，如果再不指定引用队列，基本就没有任何意义了。
 
 ## 垃圾收集器
+![avatar](./img/gc.png)
+
+1. Serial收集器（复制算法)
+新生代单线程收集器，标记和清理都是单线程，优点是简单高效。是client级别默认的GC方式，可以通过-XX:+UseSerialGC来强制指定。
+
+2. Serial Old收集器(标记-整理算法)
+老年代单线程收集器，Serial收集器的老年代版本。
+
+3. ParNew收集器(停止-复制算法)
+新生代收集器，可以认为是Serial收集器的多线程版本,在多核CPU环境下有着比Serial更好的表现。-XX:+UseParNewGC
+
+4. Parallel Scavenge收集器(停止-复制算法)
+并行收集器，追求高吞吐量，高效利用CPU。吞吐量一般为99%， 吞吐量= 用户线程时间/(用户线程时间+GC线程时间)。适合后台应用等对交互相应要求不高的场景。是server级别默认采用的GC方式，可用-XX:+UseParallelGC来强制指定，用-XX:ParallelGCThreads=4来指定线程数
+
+5. Parallel Old收集器(停止-复制算法)
+Parallel Scavenge收集器的老年代版本，并行收集器，吞吐量优先。
+
+6. CMS(Concurrent Mark Sweep)收集器（标记-清理算法）
+高并发、低停顿，追求最短GC回收停顿时间，cpu占用比较高，响应时间快，停顿时间短，多核cpu 追求高响应时间的选择。-XX:+UseConcMarkSweepGC
+
+7. G1收集器
+G1（Garbage first）收集器是最先进的收集器之一，是面向服务端的垃圾收集器。java9默认收集器。G1中也有分代的概念，不过使用G1收集器时，Java堆的内存布局与其他收集器有很大的差别，它将整个Java堆划分为多个大小相等的独立区域（Region），G1收集器之所以能建立可预测的停顿时间模型，是因为它可以有计划的避免在整个Java堆中进行全区域的垃圾收集。G1跟踪各个Region里垃圾堆积的价值大小（回收所获得的空间大小以及回收所需要的时间的经验值），在后台维护一个优先列表，每次优先收集价值最大的那个Region。这样就保证了在有限的时间内尽可能提高效率。
+
+| 垃圾器 | 代 |参数 | 对映 |日志 |
+| :--: | :--: | :--: | :--:| :--:|
+| Serial收集器 | 新生代| -XX:+UseSerialGC | Serial Old收集器 | (DefNew+Tenured) |
+| Serial Old收集器 | 老年代 | -- | -- | -- |
+| ParNew收集器 | 新生代 | -XX:+UseParNewGC | Serial Old收集器 | (ParNew+Tenured) |
+| Parallel Scavenge收集器 | 新生代 | -XX:+UseParallelGC | Parallel Old收集器 | (PSYoungGen+ParOldGen) |
+| CMS(Concurrent Mark Sweep)收集器 | 老年代 | -XX:+UseConcMarkSweepGC | ParNew收集器/Serial Old收集器 | (ParNew+CMS) |
+| Parallel Old收集器 | 老年代 | -XX:+UseParallelOldGC | Parallel Scavenge收集器 | (PSYoungGen+ParOldGen) |
+| G1收集器 | 全部 | -XX:+UseG1GC | -- | -- |
+
 
 ## linux
 

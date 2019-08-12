@@ -37,10 +37,10 @@ public class Test {
     }
 
 
-    public static void main(String[]rg) throws InterruptedException {
+    public static void main(String[] rg) {
         String a = "";
         while (true) {
-//            a += (new Random().nextLong()+"" + new Random().nextLong());
+            a += (new Random().nextLong() + "" + new Random().nextLong());
         }
     }
 }
