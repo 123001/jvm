@@ -29,6 +29,12 @@
             <artifactId>lombok</artifactId>
             <version>1.16.22</version>
         </dependency>
+        <!-- hutool工具集 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>4.1.21</version>
+        </dependency>
     </dependencies>
 
     <build>
