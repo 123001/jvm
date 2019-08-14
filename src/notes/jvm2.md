@@ -43,6 +43,25 @@ java程序对类的使用分为两种：
 + 由java虚拟机自带的类加载器所加载的类，在虚拟机的生命周期中，始终不会被卸载。java虚拟机本身会始终引用这引些类加载器，而这些类加载器则会始终引用它们所加载的类的Class对象，因此这些Class对象始终是可触及的。
 + 由用户自定义的类加载器所加载的类是可以被卸载的。
 
+当前类加载器（current classloader）
+> 每个类都会使用自己的类加载器（即加载自身的类加载器）来去加载其他类（指的是所依赖的类），
+如果ClassX引用了ClassY，那么ClassX的类加载器就会支加载ClassY(前提是ClassY尚未被加载)
+
+线程上下文类加载器（Context Classloader）
+> 线程上下文类加载器是从jdk1.2开始引入的，类Thread中的getContextClassLoader()和setContextClassLoader()分别用来获取和设置上下文类加载器。
+
+线程上下文类加载器的重要性：
+> spi (Service Provider Interface)
+
+> 父ClassLoader可以使用当前线程Thread.currentThread().getContextClassLoader()所指定的classLoader加载的类。这就改变了父classLoader不能使用子classLoader或是其他没有直接父子关系的classLoader加载的类的情况，即改变了双亲委托模型。
+
+> 线程上下文类加载器就是当前线程的current classLoader
+
+> 在双亲委托模型下，类加载是由下至上的，即下层的类加载器会委托上层进行加载。
+但是对于spi来说，有些接口是java核心所提供的，而java核心库是由启动类加载器来加载的，而这些接口的实现却来自不同的jar包（厂商提供），
+java的启动类加载器是不会加载其他来源的jar包，这样传统的双亲委托模型就无法满足spi的要求。
+而通过级当前线程设置上下文类加载器，就可以由设置的上下文类加载器来实现对于接口实现类的加载。
+
 
 ## java虚拟机工具：
 1. jps java process status 查询java进程
