@@ -1,0 +1,238 @@
+用户名:mozinqq 
+密码:mozinqq20180815*
+svn://nexus.dreamponline.com/train/scala/20180815
+
+svn://svn.dreamponline.com/train/dev_env/scala_dubbo
+
+http://git.mozi.local/chain/topex.git
+git
+帐号：qiqunnie
+邮箱：qiqunnie@mozi.top
+密码：qiqunnie@mozi.top
+
+
+邮箱
+qiqunnie@mozi.top
+Mz20182018
+
+蓝湖
+qiqunnie@mozi.top
+123456
+
+
+创世城
+需求
+url: https://team.oschina.net/mozi/document
+15110031750
+接口
+http://dev-doc.kaicai365.com
+nieqiqun/123456
+
+用户登录接口：接口：接口：http://api-robot.mozi.local/v1/user/login
+acc
+account：zhanzhao
+password：123456
+
+redis:
+s:
+192.168.1.191   端   端口：6379
+密码：69F0ef5dd1d62ab48b13834286403A
+
+数据库：
+库：
+192.168.1.191
+账户：
+账户：root
+密码：Mz18!@#qwer
+
+tapd:
+账户：qiqunnie@mozi.top
+密码：123456m
+
+https://gateio.io
+nie998877
+nie123456
+nie123456789
+
+c:\windows\system32\drivers\etc
+
+<!--<dependency>
+                   &lt;!&ndash;kryo-serializers kryo序列化&ndash;&gt;
+                   <groupId>de.javakaffee</groupId>
+                   <artifactId>kryo-serializers</artifactId>
+                   <version>0.42</version>
+               </dependency>-->
+
+jvm:
+http://unixboy.iteye.com/blog/174173
+https://blog.csdn.net/lidf1992/article/details/75050219
+http://www.iteye.com/topic/470404
+https://blog.csdn.net/raintungli/article/details/11529075
+http://caoyaojun1988-163-com.iteye.com/blog/1969853
+https://java-latte.blogspot.com/2014/03/metaspace-in-java-8.html
+
+
+
+https://oapi.dingtalk.com/connect/qrconnect?appid=dingoaadjqrxv1aymtra0u&response_type=code&scope=snsapi_login&state=STATE&redirect_uri=REDIRECT_URI
+
+1.登录之后获取用户信息；2.交易id;3.手续费；4.远程调用事物问题
+
+
+ 0!:_x7ui2f4W
+ 
+ set password for root@localhost=password('root');
+ 
+ 
+ zh-CN, zh, zh-TW, zh-HK, en-US, en
+ 
+ test1@qq.com
+ 12345678m
+ 
+ 禅道
+ http://bug.mozi.local
+ qiqunnie/123456789x
+ http://bug.topex.local
+ qiqunnie/123456789x
+ 
+ linux：
+ ip: 
+ db-dev/172.16.2.23
+ db-test/172.16.3.23
+ dev/172.16.2.22
+ test/172.16.3.22
+ 密码：Mozi@2018
+ 
+ redis-cli -h redis.topex.local  -p  6379 
+ 
+topex前端：
+http://www.topex.dev
+http://www.topex.fat
+http://www.topex.uat
+topex后端：
+http://mp.topex.dev
+http://mp.topex.fat
+test1/000000
+http://mp.topex.uat 
+
+
+ D:\sys\mysql-5.7.25-winx64\bin\mysqlbinlog --base64-output=decode-rows -v --start-datetime="2019-02-20 00:00:00" --stop-datetime="2019-02-26 15:20:00" mysql-bin.000001 -r output.log
+
+
+D:\sys\apache-maven-3.5.4\bin\mvn clean install
+
+ ps -ef | grep java
+/mozi/install/java/bin/java -Denv=uat -Duat_meta=http://uatconfig.mozi.me:9100 -jar -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 /mozi/data/topex/trade-server-0.0.1-SNAPSHOT.jar
+nohup /mozi/install/java/bin/java -Denv=uat -Duat_meta=http://uatconfig.mozi.me:9100 -jar -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 /mozi/data/topex/trade-server-0.0.1-SNAPSHOT.jar &
+
+/mozi/install/java/bin/java -Denv=uat -Duat_meta=http://uatconfig.mozi.me:9100 -jar /mozi/data/topex/trade-server-0.0.1-SNAPSHOT.jar > log.file 2>&1 &
+
+-Denv=uat -Duat_meta=http://apollo.uatconfig.topex.local:19100
+
+java -Dip:host=127.0.0.1:3306 -Duser=root -Dpassword=root -Dthread=1 -Dpool=1 -jar test-1.0-SNAPSHOT.jar
+
+
+
+mysqld --initialize --user=root --console
+
+/mozi/install/mysql/bin/mysqld --verbose --help |grep -A 1 'Default options'
+ALTER USER USER() IDENTIFIED BY 'root';
+flush privileges;
+update user set host = '%' where user = 'root';
+
+D:\sys\mongodb-win32-x86_64-2008plus-ssl-3.6.11\bin\mongod.exe --config "D:\sys\mongodb-win32-x86_64-2008plus-ssl-3.6.11\mongod.cfg" --install
+
+
+120
+
+jstat -gc 12268 1000 5
+jstack -l 448
+
+http://portal.topex.local:19100
+http://apollo.devconfig.topex.local:19100
+账号/密码：topex/topex
+
+http://jenkins.topex.local
+账号/密码：dev/123456
+
+
+-Denv=uat -Duat_meta=http://apollo.uatconfig.topex.local:19100
+
+
+-Xmx2000m
+-Xms2000m
+-XX:NewSize=700m
+-XX:NewRatio=2
+-XX:SurvivorRatio=8
+-XX:+PrintGCDetails
+-XX:+PrintGCTimeStamps
+-XX:+PrintHeapAtGC
+-Xloggc:F:\gc1.log
+-XX:+HeapDumpOnOutOfMemoryError
+-XX:HeapDumpPath=F:\heap\.
+
+3185
+2738
+
+1555580577000
+1555580577107
+
+Go轻松学: https://www.golang123.com/book/16
+Go示例学: https://www.golang123.com/book/17
+Go Web 编程: https://www.golang123.com/book/9
+
+
+bin/kafka-manager -Dconfig.file=./conf/application.conf -Dhttp.port=7778
+
+docker
+dark123/qun12345678
+
+
+将jar打包为镜像
+docker build -t spring-boot-docker .
+启动镜像
+docker run --name spring-boot-docker -d -v E:/docker/logs:/docker/logs -p 8080:8080 spring-boot-docker
+
+docker run --name springio -d -v E:/docker/logs:/docker/logs -p 8080:8080 springio/springboot-docker
+
+
+mysqlslap -uroot -proot --concurrency=50,100 --iterations=3 --number-int-cols=5 --number-char-cols=5 --auto-generate-sql --auto-generate-sql-add-autoincrement --engine=myisam,innodb --number-of-queries=5000 --create-schema=test12
+
+id,platform_code,business_id,type,begin_time,end_time,refer_cnt,self_cnt,status,create_time,update_time
+
+
+http://t.cn/E902ji1
+
+
+http://172.16.2.22:8282/wallet_consumer/swagger-ui.htm
+http://172.16.2.22:8282/wallet_consumer/swagger-ui.html#
+584012697130147840
+
+
+curl -X GET --header 'Accept: application/json' 'http://172.16.2.22:8282/wallet_consumer/api/aic2/getBalance?account=123'
+
+
+
+196
+78
+78
+第五章385
+
+spark第三天55
+
+jvm 90
+
+springcloud 368
+
+docker run -d -p 18010:18010 -v e:/tmp/f/test_logs:/financial/logs/examine-server springindocker
+
+
+keytool -import -keystore baidu.keystore -file baidu.cer -alias baidu
+
+
+keytool -certreq -file client.csr -alias clientStore -keystore clientStore.jks
+keytool -certreq -file server.csr -alias serverStore -keystore serverStore.jks
+
+keytool -gencert -infile server.csr -outfile server.cer -alias clientStore -keystore clientStore.jks
+
+keytool -gencert -infile client.csr -outfile client.cer -alias serverStore -keystore serverStore.jks
+
